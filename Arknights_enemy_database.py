@@ -111,12 +111,14 @@ def enemyInfoQuery(queryString):
     global enemyID
     enemyID = 0
     enemyDataFound = False
+    queryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])', '', queryString)
+
     # 清屏
     try:
         suppressOutput = subprocess.call('clear')
-        suppressOutput = subprocess.call('cls', shell=True)
     except:
-        pass
+        suppressOutput = subprocess.call('cls', shell=True)
+
     def printEnemyInfo(ID):
         print(
             key.replace(str(reverseIndex[ID] + '_description'), '描述：').replace(str(reverseIndex[enemyID] + '_atk'),
