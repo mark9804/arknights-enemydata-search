@@ -114,9 +114,9 @@ def enemyInfoQuery(queryString):
     # 清屏
     try:
         suppressOutput = subprocess.call('clear')
-    except:
         suppressOutput = subprocess.call('cls', shell=True)
-
+    except:
+        pass
     def printEnemyInfo(ID):
         print(
             key.replace(str(reverseIndex[ID] + '_description'), '描述：').replace(str(reverseIndex[enemyID] + '_atk'),
@@ -137,7 +137,7 @@ def enemyInfoQuery(queryString):
                 reverseIndex[enemyID], '代号：'), enemyProperties.get(key, '出现错误！'))
 
     if queryString != '':
-        if re.search('\d', queryString.replace('·', '')) is None:
+        if re.search('\D', queryString.replace('·', '')) is not None:
             for key in index.keys():
                 if re.search(queryString.lower().replace('·', ''), key.lower().replace('·', '')) is not None:
                     enemyID = index[key]
@@ -149,7 +149,7 @@ def enemyInfoQuery(queryString):
             for suffix in attributes:
                 key = str(reverseIndex[enemyID] + suffix)
                 printEnemyInfo(enemyID)
-        elif re.search('\d', queryString.replace('·', '')) is not None:
+        else:
             enemyID = int(queryString) - 1
             for suffix in attributes:
                 try:
@@ -158,9 +158,10 @@ def enemyInfoQuery(queryString):
                     print('没有找到博士需要的信息！')
                     return
                 printEnemyInfo(enemyID)
-        else:
-            print('请博士输入需要查询的信息！')
+    elif queryString == '':
+        print('请博士输入需要查询的信息！')
     print('博士可输入list重新获取敌方人员清单。')
+
 
 if __name__ == '__main__':
     # 在Windows环境下将控制台代码页设置为utf-8
