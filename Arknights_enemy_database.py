@@ -7,7 +7,7 @@ import subprocess
 # import pysnooper
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
-enemyID = retryCount = retryFunctionCalledCount = 0
+enemyID = retryCount = 0
 index = {}
 enemyProperties = {}
 reverseIndex = {}
@@ -15,11 +15,8 @@ reverseIndex = {}
 
 def initialize():
     def retryConnection():
-        global retryCount, retryFunctionCalledCount
-        retryFunctionCalledCount += 1
-        if retryFunctionCalledCount == 2:
-            retryCount += 1
-            retryFunctionCalledCount = 0
+        global retryCount
+        retryCount += 1
         return 2 ** retryCount
 
     try:
@@ -28,8 +25,9 @@ def initialize():
         data = json.loads(source)
         print('已获取信息。正在初始化数据。')
     except:
-        print('无法获取数据。程序将在' + str(retryConnection()) + '秒后重试连接...')
-        time.sleep(retryConnection())
+        retryTime = retryConnection()
+        print('无法获取数据。程序将在' + str(retryTime) + '秒后重试连接...')
+        time.sleep(retryTime)
         initialize()
 
 
