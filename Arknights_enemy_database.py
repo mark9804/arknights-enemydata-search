@@ -11,10 +11,6 @@ enemyID = retryCount = retryFunctionCalledCount = 0
 index = {}
 enemyProperties = {}
 reverseIndex = {}
-attributes = ['', '_description', '_atk', '_def', '_magicResistance', '_moveSpeed', '_baseAttackTime',
-              '_hpRecoveryPerSec',
-              '_massLevel', '_stunImmune', '_silenceImmune', '_lifePointReduce', '_rangeRadius', '_talentBlackboard',
-              '_skills']
 
 
 def initialize():
@@ -55,58 +51,6 @@ def enemyDataToIndex():
     printEnemyList()
 
 
-# @pysnooper.snoop()
-def enemyDataBuild():
-    global enemyID, index
-    for key in index:
-        enemyProperties[str(key)] = reverseIndex[
-            index[data['enemies'][index[key]]['Value'][0]['enemyData']['name']['m_value']]]
-        # 代号_suffix
-        enemyProperties[str(key) + '_description'] = \
-            data['enemies'][index[key]]['Value'][0][
-                'enemyData']['description']['m_value']
-        # 从attributes开始层级关系不一样
-        enemyProperties[str(key) + '_atk'] = data['enemies'][index[key]]['Value'][0]['enemyData']['attributes']['atk'][
-            'm_value']
-        enemyProperties[str(key) + '_def'] = data['enemies'][index[key]]['Value'][0]['enemyData']['attributes']['def'][
-            'm_value']
-        enemyProperties[str(key) + '_magicResistance'] = \
-            data['enemies'][index[key]]['Value'][0]['enemyData'][
-                'attributes']['magicResistance']['m_value']
-        enemyProperties[str(key) + '_moveSpeed'] = \
-            data['enemies'][index[key]]['Value'][0]['enemyData'][
-                'attributes']['moveSpeed']['m_value']
-        enemyProperties[str(key) + '_baseAttackTime'] = \
-            data['enemies'][index[key]]['Value'][0]['enemyData'][
-                'attributes']['baseAttackTime']['m_value']
-        enemyProperties[str(key) + '_hpRecoveryPerSec'] = \
-            data['enemies'][index[key]]['Value'][0]['enemyData'][
-                'attributes']['hpRecoveryPerSec']['m_value']
-        enemyProperties[str(key) + '_massLevel'] = \
-            data['enemies'][index[key]]['Value'][0]['enemyData'][
-                'attributes']['massLevel']['m_value']
-        enemyProperties[str(key) + '_stunImmune'] = str(
-            data['enemies'][index[key]]['Value'][0]['enemyData']['attributes']['stunImmune']['m_value']).replace(
-            'False', '否').replace('True', '是')
-        enemyProperties[str(key) + '_silenceImmune'] = str(
-            data['enemies'][index[key]]['Value'][0]['enemyData']['attributes']['silenceImmune']['m_value']).replace(
-            'False', '否').replace('True', '是')
-        # 暂时不知道lifePointReduce是做什么的，剧情boss该值都是2
-        enemyProperties[str(key) + '_lifePointReduce'] = str(
-            data['enemies'][index[key]]['Value'][0]['enemyData']['lifePointReduce'][
-                'm_value'])
-        enemyProperties[str(key) + '_rangeRadius'] = \
-            data['enemies'][index[key]]['Value'][0][
-                'enemyData']['rangeRadius']['m_value']
-        enemyProperties[str(key) + '_talentBlackboard'] = str(
-            data['enemies'][index[key]]['Value'][0]['enemyData']['talentBlackboard']).replace('None', '无')
-        enemyProperties[str(key) + '_skills'] = str(
-            data['enemies'][index[key]]['Value'][0]['enemyData']['skills']).replace('None', '无')
-
-
-# @pysnooper.snoop()
-
-
 def enemyInfoQuery(queryString):
     global enemyID
     enemyID = 0
@@ -119,47 +63,30 @@ def enemyInfoQuery(queryString):
     except:
         suppressOutput = subprocess.call('cls', shell=True)
 
-    def printEnemyInfo(ID):
-        print(
-            key.replace(str(reverseIndex[ID] + '_description'), '描述：').replace(str(reverseIndex[enemyID] + '_atk'),
-                                                                               '攻击：').replace(
-                str(reverseIndex[ID] + '_def'), '物防：').replace(str(reverseIndex[enemyID] + '_magicResistance'),
-                                                               '法抗：').replace(
-                str(reverseIndex[ID] + '_moveSpeed'), '移动速度：').replace(
-                str(reverseIndex[ID] + '_baseAttackTime'), '攻击间隔时长：').replace(
-                str(reverseIndex[ID] + '_hpRecoveryPerSec'), '每秒回复生命值：').replace(
-                str(reverseIndex[ID] + '_massLevel'), '重量级：').replace(str(reverseIndex[enemyID] + '_stunImmune'),
-                                                                      '免疫眩晕：').replace(
-                str(reverseIndex[ID] + '_silenceImmune'), '免疫沉默：').replace(
-                str(reverseIndex[ID] + '_lifePointReduce'), 'lifePointReduce：').replace(
-                str(reverseIndex[ID] + '_rangeRadius'), '攻击范围：').replace(
-                str(reverseIndex[ID] + '_talentBlackboard'), '天赋：').replace(str(reverseIndex[enemyID] + '_skills'),
-                                                                            '技能：'.encode('utf-8').decode(
-                                                                                'utf-8')).replace(
-                reverseIndex[enemyID], '代号：'), enemyProperties.get(key, '出现错误！'))
-
     if queryString != '':
         if re.search('\D', queryString.replace('·', '')) is not None:
-            for key in index.keys():
+            for key in enemyPropertiesList.keys():
                 if re.search(queryString.lower().replace('·', ''), key.lower().replace('·', '')) is not None:
-                    enemyID = index[key]
                     enemyDataFound = True
+                    for name, value in enemyPropertiesList[key].items():
+                        print(name + ': ' + str(value))
                     break
             if not enemyDataFound:
                 print('没有找到博士需要的信息！')
                 return
-            for suffix in attributes:
-                key = str(reverseIndex[enemyID] + suffix)
-                printEnemyInfo(enemyID)
+            # for suffix in attributes:
+            #     key = str(reverseIndex[enemyID] + suffix)
+            #     printEnemyInfo(enemyID)
         else:
             enemyID = int(queryString) - 1
-            for suffix in attributes:
-                try:
-                    key = str(reverseIndex[enemyID] + suffix)
-                except KeyError:
-                    print('没有找到博士需要的信息！')
-                    return
-                printEnemyInfo(enemyID)
+            try:
+                key = reverseIndex[enemyID]
+                for name, value in enemyPropertiesList[key].items():
+                    print(name + ': ' + str(value))
+            except KeyError:
+                print('没有找到博士需要的信息！')
+                return
+
     elif queryString == '':
         print('请博士输入需要查询的信息！')
     print('博士可输入list重新获取敌方人员清单。')
@@ -175,7 +102,62 @@ if __name__ == '__main__':
     print('正在获取信息，请确保网络连接正常...')
     initialize()
     enemyDataToIndex()
-    enemyDataBuild()
+    # 因为这里创建的字典必须是全局变量,所以我暂时没找到办法抽象成函数
+    # 不过反正就使用一次,也不能说完全不Pythonic
+    enemyPropertiesList = {}
+    for key in index:
+        codename = key
+        locals()[str(key)] = dict(
+            {'代号': reverseIndex[index[data['enemies'][index[codename]]['Value'][0]['enemyData']['name']['m_value']]],
+             '描述': data['enemies'][index[codename]]['Value'][0]['enemyData']['description']['m_value'],
+             '攻击': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk']['m_value'],
+             '防御': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def']['m_value'],
+             '法抗': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
+                 'm_value'],
+             '移动速度': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed']['m_value'],
+             '基础攻击间隔时长': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
+                 'm_value'],
+             '每秒回复生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['hpRecoveryPerSec'][
+                 'm_value'],
+             '重量': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['massLevel']['m_value'],
+             '是否免疫眩晕': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['stunImmune'][
+                               'm_value']).replace('False', '否').replace('True', '是'), '是否免疫沉默': str(
+                data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['silenceImmune'][
+                    'm_value']).replace('False', '否').replace('True', '是'), 'lifePointReduce': str(
+                data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
+             '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
+             '天赋': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']).replace('None',
+                                                                                                              '无'),
+             '技能': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills']).replace('None', '无'),
+             })
+        # 这段暂时还不能用,之后再找找原因
+        # try:
+        #     print(codename,index[codename],len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']))
+        #     for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
+        #         key['天赋' + str(talent + 1) + '名称'] = \
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
+        #         key['天赋' + str(talent + 1) + '数值'] = \
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
+        #         key['天赋' + str(talent + 1) + ' valueStr'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent][
+        #                 'valueStr']).replace('None', '无')
+        # except TypeError:
+        #     pass
+        # try:
+        #     for skill in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'])):
+        #         key['技能' + str(skill + 1) + '名称'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey'])
+        #         key['技能' + str(skill + 1) + '优先级'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['priority'])
+        #         key['技能' + str(skill + 1) + '冷却时间'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['cooldown'])
+        #         key['技能' + str(skill + 1) + '初始冷却时间'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['initCooldown'])
+        #         key['技能' + str(skill + 1) + ' blackboard'] = str(
+        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['blackboard'])
+        # except TypeError:
+        #     pass
+        enemyPropertiesList[str(codename)] = locals()[str(key)]
     while True:
         queryString = input('PRTS_Query:>')
         if queryString == '?' or queryString == 'list':
