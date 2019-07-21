@@ -3,8 +3,10 @@ import re
 import requests
 import time
 import subprocess
+import socket
+import socks
 
-# import pysnooper
+import pysnooper
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
@@ -18,12 +20,32 @@ def initialize():
         global retryCount
         retryCount += 1
         return 2 ** retryCount
-
     try:
-        global data
-        source = requests.get(url).content
-        data = json.loads(source)
-        print('已获取信息。正在初始化数据。')
+        try:
+            global data
+            source = requests.get(url).content
+            data = json.loads(source)
+            print('已获取信息。正在初始化数据。')
+        except:
+            useSocks = input('无法建立连接。是否尝试使用Socks？(y/N):')
+            if useSocks.upper() == 'Y':
+                address = input('请输入本机socks地址(默认127.0.0.1）:')
+                if address == '':
+                    address = '127.0.0.1'
+                else:
+                    pass
+                port = input('请输入本机socks端口(默认1080）:')
+                if port == '':
+                    port = '127.0.0.1'
+                else:
+                    pass
+                socks.set_default_proxy(socks.SOCKS5, address, port)
+                socket.socket = socks.socksocket
+                source = requests.get(url).content
+                data = json.loads(source)
+                print('已获取信息。正在初始化数据。')
+            elif useSocks.upper() == 'N':
+                pass
     except:
         retryTime = retryConnection()
         print('无法获取数据。程序将在' + str(retryTime) + '秒后重试连接...')
@@ -129,10 +151,11 @@ if __name__ == '__main__':
              '技能': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills']).replace('None', '无'),
              })
         # 这段暂时还不能用,之后再找找原因
+        # with pysnooper.snoop():
         # try:
-        #     print(codename,index[codename],len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']))
+        #     # print(codename, index[codename], len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']))
         #     for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
-        #         key['天赋' + str(talent + 1) + '名称'] = \
+        #         key['天赋名称'] = \
         #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
         #         key['天赋' + str(talent + 1) + '数值'] = \
         #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
