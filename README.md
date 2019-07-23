@@ -1,5 +1,7 @@
 # 明日方舟敌方信息查询工具
 
+\* [English](https://github.com/Mark9804/arknights-enemydata-search/blob/master/README_en.md)
+
 > 丢人，你马上给我退出战场！
 
 ## 数据来源

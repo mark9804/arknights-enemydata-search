@@ -1,5 +1,5 @@
 # Arknights Enemy Database Query Tool
-
+\* [Chinese](https://github.com/Mark9804/arknights-enemydata-search/blob/master/README.md)
 > Humiliating, get out of the battlefield now! --Winter
 
 ## Data Source
