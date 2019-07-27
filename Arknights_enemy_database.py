@@ -130,6 +130,7 @@ if __name__ == '__main__':
         locals()[str(key)] = dict(
             {'代号': reverseIndex[index[data['enemies'][index[codename]]['Value'][0]['enemyData']['name']['m_value']]],
              '描述': data['enemies'][index[codename]]['Value'][0]['enemyData']['description']['m_value'],
+             '生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp']['m_value'],
              '攻击': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk']['m_value'],
              '防御': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def']['m_value'],
              '法抗': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
@@ -155,7 +156,7 @@ if __name__ == '__main__':
         # try:
         #     # print(codename, index[codename], len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']))
         #     for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
-        #         key['天赋名称'] = \
+        #         key['天赋' + str(talent + 1) + '名称'] = \
         #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
         #         key['天赋' + str(talent + 1) + '数值'] = \
         #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
