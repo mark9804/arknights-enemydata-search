@@ -57,7 +57,7 @@ def printEnemyList():
     for key in index:
         print(str(int(index[key] + 1)) + '%s%s' % ('.', ' ' *
                                                    (2 - len(str(int(index[key]) + 1)))) + str(key))
-    print('博士可以输入敌方人员代号或编号进行查询。')
+    print('博士可以输入敌方人员代号或编号进行查询，输入exit退出。')
 
 
 def enemyDataToIndex():
@@ -85,7 +85,7 @@ def enemyInfoQuery(queryString):
     if queryString != '':
         if re.search('\D', queryString.replace('·', '')) is not None:
             for key in enemyPropertiesList.keys():
-                if re.search(queryString.lower().replace('·', ''), key.lower().replace('·', '')) is not None:
+                if re.search(queryString.replace('·', ''), key.lower().replace('·', '')) is not None:
                     enemyDataFound = True
                     for name, value in enemyPropertiesList[key].items():
                         print(name + ': ' + str(value))
@@ -108,7 +108,7 @@ def enemyInfoQuery(queryString):
 
     elif queryString == '':
         print('请博士输入需要查询的信息！')
-    print('博士可输入list或“？”重新获取敌方人员清单。')
+    print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
 
 
 if __name__ == '__main__':
@@ -178,8 +178,10 @@ if __name__ == '__main__':
             pass
         enemyPropertiesList[str(codename)] = locals()[str(key)]
     while True:
-        queryString = input('PRTS_Query:>')
+        queryString = str(input('PRTS_Query:>')).lower()
         if queryString == '?' or queryString == 'list' or queryString == '？':
             printEnemyList()
+        elif queryString == 'exit':
+            quit()
         else:
             enemyInfoQuery(queryString)
