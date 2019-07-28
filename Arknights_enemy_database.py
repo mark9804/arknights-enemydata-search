@@ -147,38 +147,36 @@ if __name__ == '__main__':
                     'm_value']).replace('False', '否').replace('True', '是'), 'lifePointReduce': str(
                 data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
-             '天赋': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']).replace('None',
-                                                                                                              '无'),
-             '技能': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills']).replace('None', '无'),
+             # '天赋': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']).replace('None',
+             #                                                                                                  '无'),
+             # '技能': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills']).replace('None', '无'),
              })
-        # 这段暂时还不能用,之后再找找原因
         # with pysnooper.snoop():
-        # try:
-        #     # print(codename, index[codename], len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']))
-        #     for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
-        #         key['天赋' + str(talent + 1) + '名称'] = \
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
-        #         key['天赋' + str(talent + 1) + '数值'] = \
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
-        #         key['天赋' + str(talent + 1) + ' valueStr'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent][
-        #                 'valueStr']).replace('None', '无')
-        # except TypeError:
-        #     pass
-        # try:
-        #     for skill in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'])):
-        #         key['技能' + str(skill + 1) + '名称'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey'])
-        #         key['技能' + str(skill + 1) + '优先级'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['priority'])
-        #         key['技能' + str(skill + 1) + '冷却时间'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['cooldown'])
-        #         key['技能' + str(skill + 1) + '初始冷却时间'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['initCooldown'])
-        #         key['技能' + str(skill + 1) + ' blackboard'] = str(
-        #             data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['blackboard'])
-        # except TypeError:
-        #     pass
+        try:
+            for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
+                locals()[str(key)]['天赋' + str(talent + 1) + '名称'] = \
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
+                locals()[str(key)]['天赋' + str(talent + 1) + '数值'] = \
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
+                locals()[str(key)]['天赋' + str(talent + 1) + ' valueStr'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent][
+                        'valueStr']).replace('None', '无')
+        except TypeError:
+            pass
+        try:
+            for skill in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'])):
+                locals()[str(key)]['技能' + str(skill + 1) + '名称'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey'])
+                locals()[str(key)]['技能' + str(skill + 1) + '优先级'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['priority'])
+                locals()[str(key)]['技能' + str(skill + 1) + '冷却时间'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['cooldown'])
+                locals()[str(key)]['技能' + str(skill + 1) + '初始冷却时间'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['initCooldown'])
+                locals()[str(key)]['技能' + str(skill + 1) + ' blackboard'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['blackboard'])
+        except TypeError:
+            pass
         enemyPropertiesList[str(codename)] = locals()[str(key)]
     while True:
         queryString = input('PRTS_Query:>')
