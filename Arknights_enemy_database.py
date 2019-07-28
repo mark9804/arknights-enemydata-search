@@ -7,7 +7,6 @@ import socket
 import socks
 
 import pysnooper
-
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
 index = {}
@@ -27,7 +26,7 @@ def initialize():
             data = json.loads(source)
             print('已获取信息。正在初始化数据。')
         except:
-            useSocks = input('无法建立连接。是否尝试使用Socks？(y/N):')
+            useSocks = input('无法建立连接。是否尝试通过Socks代理进行连接？(y/N):')
             if useSocks.upper() == 'Y':
                 address = input('请输入本机socks地址(默认127.0.0.1）:')
                 if address == '':
@@ -36,7 +35,7 @@ def initialize():
                     pass
                 port = input('请输入本机socks端口(默认1080）:')
                 if port == '':
-                    port = '127.0.0.1'
+                    port = '1080'
                 else:
                     pass
                 socks.set_default_proxy(socks.SOCKS5, address, port)
@@ -109,7 +108,7 @@ def enemyInfoQuery(queryString):
 
     elif queryString == '':
         print('请博士输入需要查询的信息！')
-    print('博士可输入list重新获取敌方人员清单。')
+    print('博士可输入list或“？”重新获取敌方人员清单。')
 
 
 if __name__ == '__main__':
@@ -180,7 +179,7 @@ if __name__ == '__main__':
         enemyPropertiesList[str(codename)] = locals()[str(key)]
     while True:
         queryString = input('PRTS_Query:>')
-        if queryString == '?' or queryString == 'list':
+        if queryString == '?' or queryString == 'list' or queryString == '？':
             printEnemyList()
         else:
             enemyInfoQuery(queryString)
