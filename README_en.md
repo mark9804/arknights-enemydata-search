@@ -37,7 +37,7 @@ Download executable in the [Release](https://github.com/Mark9804/arknights-enemy
 * Search via arguments is currently not supported.
 * GUI is currently not planned.
 * Web UI, Mini program (WeChat) is currently not planned.
-* Waiting for further refactoring.
+* Further refactoring.
 
 ## Update history
 
@@ -58,6 +58,18 @@ Fixed:
 Others:
 
 * Refactored code
+
+### 0.2.1
+
+Fixed:
+
+* Previous version not showing mob HP.
+
+### 0.2.2
+
+Added:
+
+* More visualized method to show talents and skills.
 
 ## Other things to be mentioned
 
