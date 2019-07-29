@@ -5,8 +5,10 @@ import time
 import subprocess
 import socket
 import socks
+import sys
 
 import pysnooper
+
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
 index = {}
@@ -19,6 +21,7 @@ def initialize():
         global retryCount
         retryCount += 1
         return 2 ** retryCount
+
     try:
         try:
             global data
@@ -55,8 +58,7 @@ def initialize():
 def printEnemyList():
     print('已探明的敌方人员清单：')
     for key in index:
-        print(str(int(index[key] + 1)) + '%s%s' % ('.', ' ' *
-                                                   (2 - len(str(int(index[key]) + 1)))) + str(key))
+        print(str(int(index[key] + 1)) + '%s%s' % ('.', ' ' * (2 - len(str(int(index[key]) + 1)))) + str(key))
     print('博士可以输入敌方人员代号或编号进行查询，输入exit退出。')
 
 
@@ -70,18 +72,19 @@ def enemyDataToIndex():
     printEnemyList()
 
 
-def enemyInfoQuery(queryString):
+def enemyInfoQuery(queryString, clearScreen=True):
     global enemyID
     enemyID = 0
     enemyDataFound = False
     queryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])', '', queryString)
-
-    # 清屏
-    try:
-        suppressOutput = subprocess.call('clear')
-    except:
-        suppressOutput = subprocess.call('cls', shell=True)
-
+    if clearScreen is True:
+        # 清屏
+        try:
+            suppressOutput = subprocess.call('clear')
+        except:
+            suppressOutput = subprocess.call('cls', shell=True)
+    elif clearScreen is False:
+        pass
     if queryString != '':
         if re.search('\D', queryString.replace('·', '')) is not None:
             for key in enemyPropertiesList.keys():
@@ -93,9 +96,7 @@ def enemyInfoQuery(queryString):
             if not enemyDataFound:
                 print('没有找到博士需要的信息！')
                 return
-            # for suffix in attributes:
-            #     key = str(reverseIndex[enemyID] + suffix)
-            #     printEnemyInfo(enemyID)
+
         else:
             enemyID = int(queryString) - 1
             try:
@@ -108,7 +109,8 @@ def enemyInfoQuery(queryString):
 
     elif queryString == '':
         print('请博士输入需要查询的信息！')
-    print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
+
+    print()
 
 
 if __name__ == '__main__':
@@ -146,42 +148,51 @@ if __name__ == '__main__':
                     'm_value']).replace('False', '否').replace('True', '是'), 'lifePointReduce': str(
                 data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
-             # '天赋': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard']).replace('None',
-             #                                                                                                  '无'),
-             # '技能': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills']).replace('None', '无'),
              })
         # with pysnooper.snoop():
         try:
             for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
-                locals()[str(key)]['天赋' + str(talent + 1) + '名称'] = \
+                locals()[str(key)]['天赋' + str(talent + 1)] = ''
+                locals()[str(key)]['\t天赋' + str(talent + 1) + '名称'] = \
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
-                locals()[str(key)]['天赋' + str(talent + 1) + '数值'] = \
+                locals()[str(key)]['\t天赋' + str(talent + 1) + '数值'] = \
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
-                locals()[str(key)]['天赋' + str(talent + 1) + ' valueStr'] = str(
+                locals()[str(key)]['\t天赋' + str(talent + 1) + ' valueStr'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent][
                         'valueStr']).replace('None', '无')
         except TypeError:
             pass
         try:
             for skill in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'])):
-                locals()[str(key)]['技能' + str(skill + 1) + '名称'] = str(
+                locals()[str(key)]['技能' + str(skill + 1)] = ''
+                locals()[str(key)]['\t技能' + str(skill + 1) + '名称'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey'])
-                locals()[str(key)]['技能' + str(skill + 1) + '优先级'] = str(
+                locals()[str(key)]['\t技能' + str(skill + 1) + '优先级'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['priority'])
-                locals()[str(key)]['技能' + str(skill + 1) + '冷却时间'] = str(
+                locals()[str(key)]['\t技能' + str(skill + 1) + '冷却时间'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['cooldown'])
-                locals()[str(key)]['技能' + str(skill + 1) + '初始冷却时间'] = str(
+                locals()[str(key)]['\t技能' + str(skill + 1) + '初始冷却时间'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['initCooldown'])
-                locals()[str(key)]['技能' + str(skill + 1) + ' blackboard'] = str(
+                locals()[str(key)]['\t技能' + str(skill + 1) + ' blackboard'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['blackboard'])
         except TypeError:
             pass
         enemyPropertiesList[str(codename)] = locals()[str(key)]
+
     while True:
+        if sys.argv[1:]:
+            for queryString in sys.argv[1:]:
+                enemyInfoQuery(queryString.lower(), clearScreen=False)
+                sys.argv.remove(str(queryString))
+            print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
+
         queryString = str(input('PRTS_Query:>')).lower()
         if queryString == '?' or queryString == 'list' or queryString == '？':
             printEnemyList()
+
         elif queryString == 'exit':
             quit()
+
         else:
             enemyInfoQuery(queryString)
+            print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
