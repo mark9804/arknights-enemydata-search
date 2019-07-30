@@ -134,8 +134,8 @@ if __name__ == '__main__':
              '生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp']['m_value'],
              '攻击': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk']['m_value'],
              '防御': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def']['m_value'],
-             '法抗': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
-                 'm_value'],
+             '法抗': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
+                           'm_value']) + '%',
              '移动速度': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed']['m_value'],
              '基础攻击间隔时长': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
                  'm_value'],
@@ -219,7 +219,8 @@ if __name__ == '__main__':
         except:
             pass
         try:
-            if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
+            if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
                 locals()[str(key)]['攻击范围'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
                         'm_value']) + '（加强版本：' + str(
