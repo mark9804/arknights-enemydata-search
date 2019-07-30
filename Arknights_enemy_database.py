@@ -1,3 +1,4 @@
+# coding = utf-8
 import json
 import re
 import requests
@@ -7,7 +8,7 @@ import socket
 import socks
 import sys
 
-import pysnooper
+# import pysnooper
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
@@ -124,7 +125,6 @@ if __name__ == '__main__':
     initialize()
     enemyDataToIndex()
     # 因为这里创建的字典必须是全局变量,所以我暂时没找到办法抽象成函数
-    # 不过反正就使用一次,也不能说完全不Pythonic
     enemyPropertiesList = {}
     for key in index:
         codename = key
@@ -149,6 +149,84 @@ if __name__ == '__main__':
                 data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
              })
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp']['m_defined']:
+                locals()[str(key)]['生命'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp']['m_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_defined']:
+                locals()[str(key)]['攻击'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_defined']:
+                locals()[str(key)]['防御'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance']['m_defined']:
+                locals()[str(key)]['法抗'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance'][
+                        'm_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed']['m_defined']:
+                locals()[str(key)]['移动速度'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed'][
+                        'm_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime']['m_defined']:
+                locals()[str(key)]['基础攻击间隔时长'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime'][
+                        'm_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec']['m_defined']:
+                locals()[str(key)]['每秒回复生命'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['hpRecoveryPerSec'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec'][
+                        'm_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel']['m_defined']:
+                locals()[str(key)]['重量'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['massLevel'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel'][
+                        'm_value']) + '）'
+        except:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
+                locals()[str(key)]['攻击范围'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
+                        'm_value']) + '（加强版本：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) + '）'
+        except:
+            pass
+
         # with pysnooper.snoop():
         try:
             for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
