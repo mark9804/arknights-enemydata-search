@@ -148,6 +148,7 @@ if __name__ == '__main__':
                     'm_value']).replace('False', '否').replace('True', '是'), 'lifePointReduce': str(
                 data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
+             '减少保护点耐久': data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value'],
              })
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp']['m_defined']:
