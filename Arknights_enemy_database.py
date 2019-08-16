@@ -150,85 +150,182 @@ if __name__ == '__main__':
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
              '减少保护点耐久': data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value'],
              })
+        # 查找Level 1信息
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp']['m_defined']:
                 locals()[str(key)]['生命'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp']['m_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_defined']:
                 locals()[str(key)]['攻击'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_defined']:
                 locals()[str(key)]['防御'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance']['m_defined']:
                 locals()[str(key)]['法抗'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance'][
                         'm_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed']['m_defined']:
                 locals()[str(key)]['移动速度'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed'][
                         'm_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime']['m_defined']:
                 locals()[str(key)]['基础攻击间隔时长'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime'][
                         'm_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec']['m_defined']:
                 locals()[str(key)]['每秒回复生命'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['hpRecoveryPerSec'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec'][
                         'm_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel']['m_defined']:
                 locals()[str(key)]['重量'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['massLevel'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel'][
                         'm_value']) + '）'
-        except:
+        except IndexError:
             pass
         try:
             if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
                 locals()[str(key)]['攻击范围'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
-                        'm_value']) + '（加强版本：' + str(
+                        'm_value']) + '（level1：' + str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) + '）'
-        except:
+        except IndexError:
             pass
-
+        # 碎骨有Level 2，不排除之后会添加其他boss的相关信息
+        try:
+            if data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['maxHp']['m_defined']:
+                locals()[str(key)]['生命'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['maxHp'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['maxHp']['m_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_defined']:
+                locals()[str(key)]['攻击'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['atk']['m_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_defined']:
+                locals()[str(key)]['防御'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['def']['m_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance']['m_defined']:
+                locals()[str(key)]['法抗'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['magicResistance'][
+                        'm_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed']['m_defined']:
+                locals()[str(key)]['移动速度'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['moveSpeed'][
+                        'm_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime']['m_defined']:
+                locals()[str(key)]['基础攻击间隔时长'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['baseAttackTime'][
+                        'm_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec']['m_defined']:
+                locals()[str(key)]['每秒回复生命'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['hpRecoveryPerSec'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['hpRecoveryPerSec'][
+                        'm_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel']['m_defined']:
+                locals()[str(key)]['重量'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['massLevel'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['massLevel'][
+                        'm_value']) + '）'
+        except IndexError:
+            pass
+        try:
+            if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
+                locals()[str(key)]['攻击范围'] = str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
+                        'm_value']) + '（level1：' + str(
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius'][
+                        'm_value']) + '；level2：' + str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value']) + '）'
+        except IndexError:
+            pass
         # with pysnooper.snoop():
         try:
             for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
