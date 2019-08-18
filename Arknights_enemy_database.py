@@ -176,12 +176,11 @@ if __name__ == '__main__':
                  'm_value'],
              '重量': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['massLevel']['m_value'],
              '是否免疫眩晕': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['stunImmune'][
-                               'm_value']).replace('False', '否').replace('True', '是'), '是否免疫沉默': str(
-                data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['silenceImmune'][
-                    'm_value']).replace('False', '否').replace('True', '是'), 'lifePointReduce': str(
-                data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
+                               'm_value']).replace('False', '否').replace('True', '是'),
+             '是否免疫沉默': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['silenceImmune'][
+                               'm_value']).replace('False', '否').replace('True', '是'),
+             '减少保护点耐久': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
              '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
-             '减少保护点耐久': data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value'],
              })
         # 查找Level 1信息
         try:
