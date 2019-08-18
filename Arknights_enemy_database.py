@@ -12,9 +12,42 @@ import sys
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
-index = {}
-enemyProperties = {}
-reverseIndex = {}
+index = enemyProperties = reverseIndex = {}
+
+SkillDictionary = dict({
+    'atk': '攻击',
+    'attack': '攻击',
+    'def': '防御',
+    'up': '上升',
+    'down': '下降',
+    '_scale': '增幅（倍数）',
+    'range_radius': '影响半径',
+    'antiinvi': '反隐',
+    'lasso': '枷锁',
+    'boom': '自爆',
+    'boomb': '爆破弹头',
+    'SpeedDown': '速度下降',
+    '_speed': '速度',
+    'stuncombat': '晕眩',
+    'hp_ratio': '生命值比例',
+    'blink': '闪现',
+    'reborn': '重生',
+    'duration': '时长',
+    'ArcticBlast': '冰环',
+    'healaura': '治愈圣光',
+    'hp_recovery_per_sec': '每秒回复生命值',
+    'invincible': '无敌',
+    'CriticalHit': '暴击',
+    'SummonBallis': '召唤炮台',
+})
+
+
+def translate(SkillName):
+    skill = [SkillName]
+    for key, value in SkillDictionary.items():
+        TranslatedSkill = re.sub(key, value, skill[-1])
+        skill.append(TranslatedSkill)
+    return str(skill[-1])
 
 
 def initialize():
@@ -330,8 +363,10 @@ if __name__ == '__main__':
         try:
             for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
                 locals()[str(key)]['天赋' + str(talent + 1)] = ''
-                locals()[str(key)]['\t天赋' + str(talent + 1) + '名称'] = \
-                    data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['key']
+                locals()[str(key)]['\t天赋' + str(talent + 1) + '名称'] = translate(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent][
+                        'key']) + '(' + data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][
+                                                                          talent]['key'] + ')'
                 locals()[str(key)]['\t天赋' + str(talent + 1) + '数值'] = \
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'][talent]['value']
                 locals()[str(key)]['\t天赋' + str(talent + 1) + ' valueStr'] = str(
@@ -342,8 +377,10 @@ if __name__ == '__main__':
         try:
             for skill in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'])):
                 locals()[str(key)]['技能' + str(skill + 1)] = ''
-                locals()[str(key)]['\t技能' + str(skill + 1) + '名称'] = str(
-                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey'])
+                locals()[str(key)]['\t技能' + str(skill + 1) + '名称'] = translate(str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill][
+                        'prefabKey'])) + '(' + str(
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['prefabKey']) + ')'
                 locals()[str(key)]['\t技能' + str(skill + 1) + '优先级'] = str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['skills'][skill]['priority'])
                 locals()[str(key)]['\t技能' + str(skill + 1) + '冷却时间'] = str(
