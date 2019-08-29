@@ -36,10 +36,19 @@ SkillDictionary = dict({
     'lasso': '枷锁',
     'range_radius': '影响半径',
     'reborn': '重生',
-    'up': '上升',
+    'up': '提升',
     'SpeedDown': '速度下降',
     'stuncombat': '晕眩',
     'SummonBallis': '召唤炮台',
+    'MagicResistance': '法抗提升',
+    'magic': '法术',
+    '_resistance': '抗性',
+    'ReduceBlockCnt': '减少干员阻挡人数',
+    'block_cnt': '干员阻挡人数',
+    'rangedamage': '范围伤害',
+    'damage': '伤害',
+    'selfbuff': '自身buff',
+    'dot': '点燃',
 })
 
 
@@ -141,9 +150,6 @@ def enemyInfoQuery(queryString, clearScreen=True):
             except KeyError:
                 print('没有找到博士需要的信息！')
                 return
-
-    elif queryString == '':
-        print('请博士输入需要查询的信息！')
 
     print()
 
@@ -401,7 +407,7 @@ if __name__ == '__main__':
             print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
 
         queryString = str(input('PRTS_Query:>')).lower()
-        if queryString == '?' or queryString == 'list' or queryString == '？':
+        if queryString == '?' or queryString == 'list' or queryString == '？' or queryString == '':
             printEnemyList()
 
         elif queryString == 'exit':
