@@ -49,6 +49,7 @@ SkillDictionary = dict({
     'damage': '伤害',
     'selfbuff': '自身buff',
     'dot': '点燃',
+    'interval': '间隔',
 })
 
 
