@@ -40,7 +40,7 @@ SkillDictionary = dict({
     'SpeedDown': '速度下降',
     'stuncombat': '晕眩',
     'SummonBallis': '召唤炮台',
-    'MagicResistance': '法术',
+    'Magic': '法术',
     'Resistance': '抗性',
     'magic': '法术',
     '_resistance': '抗性',
