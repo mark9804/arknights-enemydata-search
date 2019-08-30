@@ -31,7 +31,7 @@ SkillDictionary = dict({
     'healaura': '治愈圣光',
     'hp_ratio': '生命值比例',
     'hp_recovery_per_sec': '每秒回复生命值',
-    'IceShield': '掀地板',
+    'IceShield': '冰盾',
     'invincible': '无敌',
     'lasso': '枷锁',
     'range_radius': '影响半径',
@@ -44,7 +44,8 @@ SkillDictionary = dict({
     'Resistance': '抗性',
     'magic': '法术',
     '_resistance': '抗性',
-    'ReduceBlockCnt': '减少干员阻挡人数',
+    'Reduce': '减少',
+    'BlockCnt': '干员阻挡人数',
     'block_cnt': '干员阻挡人数',
     'rangedamage': '范围伤害',
     'damage': '伤害',
@@ -172,13 +173,17 @@ if __name__ == '__main__':
         codename = key
         locals()[str(key)] = dict(
             {'代号': reverseIndex[index[data['enemies'][index[codename]]['Value'][0]['enemyData']['name']['m_value']]],
-             '描述': data['enemies'][index[codename]]['Value'][0]['enemyData']['description']['m_value'],
+             '描述': data['enemies'][index[codename]]['Value'][0]['enemyData']['description']['m_value'].replace(
+                 '<@eb.key>', '「').replace('</>', '」'),
              '生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp']['m_value'],
              '攻击': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk']['m_value'],
              '防御': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def']['m_value'],
              '法抗': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['magicResistance'][
                            'm_value']) + '%',
              '移动速度': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['moveSpeed']['m_value'],
+             '攻击范围': '近身攻击' if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
+                                   'm_value'] == 0.0 else
+             data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
              '基础攻击间隔时长': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['baseAttackTime'][
                  'm_value'],
              '每秒回复生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['hpRecoveryPerSec'][
@@ -189,7 +194,6 @@ if __name__ == '__main__':
              '是否免疫沉默': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['silenceImmune'][
                                'm_value']).replace('False', '否').replace('True', '是'),
              '减少保护点耐久': str(data['enemies'][index[codename]]['Value'][0]['enemyData']['lifePointReduce']['m_value']),
-             '攻击范围': data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'],
              })
         # 查找Level 1信息
         try:
@@ -359,12 +363,15 @@ if __name__ == '__main__':
         try:
             if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
-                locals()[str(key)]['攻击范围'] = str(
+                locals()[str(key)]['攻击范围'] = '近身攻击' if \
+                    data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_value'] == 0.0 else str(
                     data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius'][
-                        'm_value']) + '（level1：' + str(
+                        'm_value']) + '（level1：' + '近身攻击' if \
+                    data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value'] == 0.0 else str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius'][
-                        'm_value']) + '；level2：' + str(
-                    data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value']) + '）'
+                        'm_value']) + '；level2：' + '近身攻击' if \
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value'] == 0.0 else str(
+                    data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value'] == 0.0) + '）'
         except IndexError:
             pass
         # with pysnooper.snoop():
