@@ -50,7 +50,7 @@ SkillDictionary = dict({
     'block_cnt': '干员阻挡人数',
     'rangedamage': '范围伤害',
     'damage': '伤害',
-    'selfbuff': '自身buff',
+    'self': '自身',
     'dot': '点燃',
     'interval': '间隔',
 })
