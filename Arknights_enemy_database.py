@@ -175,7 +175,7 @@ if __name__ == '__main__':
         locals()[str(key)] = dict(
             {'代号': reverseIndex[index[data['enemies'][index[codename]]['Value'][0]['enemyData']['name']['m_value']]],
              '描述': data['enemies'][index[codename]]['Value'][0]['enemyData']['description']['m_value'].replace(
-                 '<@eb.key>', '「').replace('</>', '」'),
+                 '<@eb.key>', '「').replace('</>', '」').replace('<@eb.danger>', '「'),
              '生命': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['maxHp']['m_value'],
              '攻击': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['atk']['m_value'],
              '防御': data['enemies'][index[codename]]['Value'][0]['enemyData']['attributes']['def']['m_value'],
