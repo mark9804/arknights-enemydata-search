@@ -16,6 +16,12 @@ index = enemyProperties = reverseIndex = {}
 
 SkillDictionary = dict({
     '_scale': '增幅倍数',
+    'shield': '护盾',
+    'SandStorm': '沙狱',
+    'DriftSand': '唱沙',
+    'enrage': '狂怒',
+    'move': '移动',
+    'speed': '速度',
     '_speed': '速度',
     'antiinvi': '反隐',
     'ArcticBlast': '冰环',
