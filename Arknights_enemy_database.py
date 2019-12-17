@@ -110,10 +110,28 @@ def initialize():
 
 
 def printEnemyList():
+    rows = int(len(index) // 4)
+    remain = int(len(index) % 4)
     print('已探明的敌方人员清单：')
-    # TODO: 分3-4列输出
-    for key in index:
-        print('%s' % ('0' * (3 - len(str(int(index[key]) + 1)))) + str(int(index[key] + 1)) + '.' + str(key))
+    for row in range(0, rows):
+        row = row + 1
+        print('%s' % ('0' * (3 - len(str(int(row * 4 - 4) + 1)))) + str(int(row * 4 - 4) + 1) + '.' + str(reverseIndex[row * 4 - 4]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[row * 4 - 4]).encode()) + len(str(reverseIndex[row * 4 - 4])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(row * 4 - 3) + 1)))) + str(int(row * 4 - 3) + 1) + '.' + str(reverseIndex[row * 4 - 3]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[row * 4 - 3]).encode()) + len(str(reverseIndex[row * 4 - 3])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(row * 4 - 2) + 1)))) + str(int(row * 4 - 2) + 1) + '.' + str(reverseIndex[row * 4 - 2]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[row * 4 - 2]).encode()) + len(str(reverseIndex[row * 4 - 2])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(row * 4 - 1) + 1)))) + str(int(row * 4 - 1) + 1) + '.' + str(reverseIndex[row * 4 - 1]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[row * 4 - 1]).encode()) + len(str(reverseIndex[row * 4 - 1])))/2))))
+    if remain == 0:
+        pass
+    elif remain == 3:
+        print('%s' % ('0' * (3 - len(str(int(rows * 4) + 1)))) + str(int(rows * 4) + 1) + '.' + str(reverseIndex[rows * 4]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4]).encode()) + len(str(reverseIndex[rows * 4])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(rows * 4 + 1) + 1)))) + str(int(rows * 4 + 1) + 1) + '.' + str(reverseIndex[rows * 4 + 1]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4 + 1]).encode()) + len(str(reverseIndex[rows * 4 + 1])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(rows * 4 + 2) + 1)))) + str(int(rows * 4 + 2) + 1) + '.' + str(reverseIndex[rows * 4 + 2]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4 + 2]).encode()) + len(str(reverseIndex[rows * 4 + 2])))/2))))
+    elif remain == 2:
+        print('%s' % ('0' * (3 - len(str(int(rows * 4) + 1)))) + str(int(rows * 4) + 1) + '.' + str(reverseIndex[rows * 4]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4]).encode()) + len(str(reverseIndex[rows * 4])))/2))) + \
+              '%s' % ('0' * (3 - len(str(int(rows * 4 + 1) + 1)))) + str(int(rows * 4 + 1) + 1) + '.' + str(reverseIndex[rows * 4 + 1]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4 + 1]).encode()) + len(str(reverseIndex[rows * 4 + 1]))) / 2)))
+              )
+    elif remain == 1:
+        print('%s' % ('0' * (3 - len(str(int(rows * 4) + 1)))) + str(int(rows * 4) + 1) + '.' + str(reverseIndex[rows * 4]) + '%s' % (' ' * int((15 - (len(str(reverseIndex[rows * 4]).encode()) + len(str(reverseIndex[rows * 4])))/2)))
+)
     print('博士可以输入敌方人员代号或编号进行查询，输入exit退出。')
 
 
