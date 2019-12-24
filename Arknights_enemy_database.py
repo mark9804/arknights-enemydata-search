@@ -2,12 +2,11 @@
 import json
 import re
 import requests
-import time
 import subprocess
 import socket
 import socks
 import sys
-
+from time import sleep
 # import pysnooper
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
@@ -15,6 +14,7 @@ enemyID = retryCount = 0
 index = enemyProperties = reverseIndex = enemyPropertiesList = {}
 
 SkillDictionary = dict({
+    'periodic_damage': '持续损失生命',
     '_scale': '增幅倍数',
     'shield': '护盾',
     'SandStorm': '沙狱',
@@ -30,10 +30,13 @@ SkillDictionary = dict({
     'blink': '闪现',
     'boom': '自爆',
     'boomb': '爆破弹头',
+    'bomb': '冰爆弹头',
     'CriticalHit': '暴击',
+    'cold': '寒冷',
     'def': '防御',
     'down': '下降',
     'duration': '时长',
+    'freeze': '寒冷',
     'healaura': '治愈圣光',
     'hp_ratio': '生命值比例',
     'hp_recovery_per_sec': '每秒回复生命值',
@@ -105,7 +108,7 @@ def initialize():
     except:
         retryTime = retryConnection()
         print('无法获取数据。程序将在' + str(retryTime) + '秒后重试连接...')
-        time.sleep(retryTime)
+        sleep(retryTime)
         initialize()
 
 
@@ -117,22 +120,26 @@ def printEnemyList():
         stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position]))) / 2)
         if re.search('·', reverseIndex[position]) is not None:
             stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position])) - 1) / 2)
+        if re.search(r'[“”]', reverseIndex[position]) is not None:
+            stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position]))) / 2) - 2
         return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(reverseIndex[position]) + '%s' % (' ' * int((15 - stringlength)))
 
-    rows = int(len(index) // 4)
-    remain = int(len(index) % 4)
+    rows = int(len(index) // 5)
+    remain = int(len(index) % 5)
     print('已探明的敌方人员清单：')
     for row in range(0, rows):
         row = row + 1
-        print(wrap(row * 4 - 4) + wrap(row * 4 - 3) + wrap(row * 4 - 2) + wrap(row * 4 - 1))
+        print(wrap(row * 5 - 5) + wrap(row * 5 - 4) + wrap(row * 5 - 3) + wrap(row * 5 - 2) + wrap(row * 5 - 1))
     if remain == 0:
         pass
+    elif remain == 4:
+        print(wrap(rows * 5) + wrap(rows * 5 + 1) + wrap(rows * 5 + 2) + wrap(rows * 5 + 3))
     elif remain == 3:
-        print(wrap(rows * 4) + wrap(rows * 4 + 1) + wrap(rows * 4 + 2))
+        print(wrap(rows * 5) + wrap(rows * 5 + 1) + wrap(rows * 5 + 2))
     elif remain == 2:
-        print(wrap(rows * 4) + wrap(rows * 4 + 1))
+        print(wrap(rows * 5) + wrap(rows * 5 + 1))
     elif remain == 1:
-        print(wrap(rows * 4))
+        print(wrap(rows * 5))
     print('博士可以输入敌方人员代号或编号进行查询，输入exit退出。')
 
 
