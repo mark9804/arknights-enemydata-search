@@ -399,7 +399,7 @@ def enemyInfoQuery(queryString, clearScreen=True):
     global enemyID
     enemyID = 0
     enemyDataFound = False
-    queryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*)', '', queryString)
+    queryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', queryString)
     if clearScreen is True:
         # 清屏
         try:
@@ -411,7 +411,8 @@ def enemyInfoQuery(queryString, clearScreen=True):
     if queryString != '':
         if re.search('\D', queryString.replace('·', '')) is not None:
             for key in enemyPropertiesList.keys():
-                if re.search(queryString.replace('·', ''), key.lower().replace('·', '')) is not None:
+                query = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', key)
+                if re.search(queryString.replace('·', ''), query.lower().replace('·', '')) is not None:
                     enemyDataFound = True
                     for name, value in enemyPropertiesList[key].items():
                         print(name + ': ' + str(value))
