@@ -39,38 +39,6 @@ Download executable in the [Release](https://github.com/Mark9804/arknights-enemy
 * Web UI, Mini program (WeChat) is currently not planned.
 * Further refactoring.
 
-## Update history
-
-### 0.1.0
-
-* Initial release.
-
-### 0.1.1
-
-* Fixed: bug introduced by regular Expression
-
-### 0.2.0
-
-Fixed:
-
-* Displaying "Input 'list' to view enemy name list" every time after performing a search.
-
-Others:
-
-* Refactored code
-
-### 0.2.1
-
-Fixed:
-
-* Previous version not showing mob HP.
-
-### 0.2.2
-
-Added:
-
-* More visualized method to show talents and skills.
-
 ## Other things to be mentioned
 
 * There are ```level: 1``` enemies in original json file. Such enemies have basic attributes such as attack and HP, but more attributes are undefined. Currently I cannot find out their usage, but I guess they might be used as an "enhanced" version in Raid levels. This kind of enemies is not included in my enemy database.

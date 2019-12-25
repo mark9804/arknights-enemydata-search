@@ -395,11 +395,11 @@ def readEnemyProperties():
         enemyPropertiesList[str(codename)] = globals()[str(key)]
 
 
-def enemyInfoQuery(queryString, clearScreen=True):
+def enemyInfoQuery(QueryString, clearScreen=True):
     global enemyID
     enemyID = 0
     enemyDataFound = False
-    queryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', queryString)
+    QueryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', QueryString)
     if clearScreen is True:
         # 清屏
         try:
@@ -408,11 +408,12 @@ def enemyInfoQuery(queryString, clearScreen=True):
             suppressOutput = subprocess.call('cls', shell=True)
     elif clearScreen is False:
         pass
-    if queryString != '':
-        if re.search('\D', queryString.replace('·', '')) is not None:
+    if QueryString != '':
+        # 如果用户输入不是纯数字，则在敌方单位名称字段当中查找信息
+        if re.search(r'\D', QueryString.replace('·', '')) is not None:
             for key in enemyPropertiesList.keys():
                 query = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', key)
-                if re.search(queryString.replace('·', ''), query.lower().replace('·', '')) is not None:
+                if re.search(QueryString.replace('·', ''), query.lower().replace('·', '')) is not None:
                     enemyDataFound = True
                     for name, value in enemyPropertiesList[key].items():
                         print(name + ': ' + str(value))
@@ -421,8 +422,9 @@ def enemyInfoQuery(queryString, clearScreen=True):
                 print('没有找到博士需要的信息！')
                 return
 
+        # 如果用户输入是纯数字，则认为是敌方编号，通过敌方编号进行索引（鹰角可千万不要坑我出个纯数字的代号……）
         else:
-            enemyID = int(queryString) - 1
+            enemyID = int(QueryString) - 1
             try:
                 key = reverseIndex[enemyID]
                 for name, value in enemyPropertiesList[key].items():
@@ -455,9 +457,13 @@ if __name__ == '__main__':
 
         queryString = str(input('PRTS_Query:>')).lower()
         if queryString == '?' or queryString == 'list' or queryString == '？' or queryString == '':
+            try:
+                suppressOutput = subprocess.call('cls', shell=True)
+            except:
+                pass
             printEnemyList()
 
-        elif queryString == 'exit':
+        elif queryString == 'exit' or queryString == 'quit':
             quit()
 
         else:
