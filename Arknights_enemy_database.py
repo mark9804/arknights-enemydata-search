@@ -1,13 +1,11 @@
-# coding = utf-8
+# coding: utf-8
 import json
 import re
 import requests
 import subprocess
-import socket
-import socks
 import sys
 from time import sleep
-# import pysnooper
+import platform
 
 url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
@@ -80,31 +78,10 @@ def initialize():
         return 2 ** retryCount
 
     try:
-        try:
-            global data
-            source = requests.get(url).content
-            data = json.loads(source)
-            print('已获取信息。正在初始化数据。')
-        except:
-            useSocks = input('无法建立连接。是否尝试通过Socks代理进行连接？(y/N):')
-            if useSocks.upper() == 'Y':
-                address = input('请输入本机socks地址(默认127.0.0.1）:')
-                if address == '':
-                    address = '127.0.0.1'
-                else:
-                    pass
-                port = input('请输入本机socks端口(默认1080）:')
-                if port == '':
-                    port = '1080'
-                else:
-                    pass
-                socks.set_default_proxy(socks.SOCKS5, address, port)
-                socket.socket = socks.socksocket
-                source = requests.get(url).content
-                data = json.loads(source)
-                print('已获取信息。正在初始化数据。')
-            elif useSocks.upper() == 'N':
-                pass
+        global data
+        source = requests.get(url).content
+        data = json.loads(source)
+        print('已获取信息。正在初始化数据。')
     except:
         retryTime = retryConnection()
         print('无法获取数据。程序将在' + str(retryTime) + '秒后重试连接...')
@@ -438,11 +415,17 @@ def enemyInfoQuery(QueryString, clearScreen=True):
 
 if __name__ == '__main__':
     # 在Windows环境下将控制台代码页设置为utf-8
-    try:
-        suppressOutput = subprocess.call('chcp 65001', shell=True)
-        suppressOutput = subprocess.call('cls', shell=True)
-    except:
-        pass
+    if platform.system() == 'Darwin':
+        try:
+            suppressOutput = subprocess.call('clear', shell=True)
+        except:
+            pass
+    elif platform.system() == 'Windows':
+        try:
+            suppressOutput = subprocess.call('chcp 65001', shell=True)
+            suppressOutput = subprocess.call('cls', shell=True)
+        except:
+            pass
     print('正在获取信息，请确保网络连接正常...')
     initialize()
     enemyDataToIndex()
