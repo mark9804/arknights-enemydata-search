@@ -2,13 +2,14 @@
 
 \* [English](https://github.com/Mark9804/arknights-enemydata-search/blob/master/README_en.md)
 
-\* 今天找到了大佬造的完整的[轮子](https://somedata.top/Arknights/enemydata)，本项目可能就此停止更新。 
+\* 今天找到了大佬造的完整的[轮子](https://somedata.top/Arknights/enemydata)，本项目可能就更新的没那么勤快了。 
 > 丢人，你马上给我退出战场！
 
 ## 数据来源
 
-[Perfare/ArknightsGameData](https://github.com/Perfare/ArknightsGameData)
+~~Perfare/ArknightsGameData~~原仓库已经被标记为Archived。
 
+新数据源：[Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)
 ## 特性
 
 只要上面这位大佬没有鸽，这个脚本就可以使用。当然本机是要能够访问GitHub的。
@@ -37,6 +38,8 @@
 ## 使用
 
 下载[Release](https://github.com/Mark9804/arknights-enemydata-search/releases)中的可执行文件使用，或者下载.py文件运行。
+
+因为我现在主力电脑是Mac，所以一段时间之内不能放出适用于Windows的build了。
 
 * 可以输入```list```来获取敌方人员名单和对应的编号。
 

@@ -7,7 +7,7 @@ import sys
 from time import sleep
 import platform
 
-url = 'https://raw.githubusercontent.com/Perfare/ArknightsGameData/master/levels/enemydata/enemy_database.json'
+url = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
 index = enemyProperties = reverseIndex = enemyPropertiesList = {}
 
