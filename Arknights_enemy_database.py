@@ -62,6 +62,45 @@ SkillDictionary = dict({
     'interval': '间隔',
 })
 
+enemyNickname = {
+    '冰刀哥': '雪怪小队破冰者',
+    '黄刀哥': '寻仇者',
+    '红刀哥': '复仇者',
+    '自爆虫': '高能源石虫·α',
+    '自爆蜘蛛': '高能源石虫·α',
+    '大斧哥': '高级武装人员',
+    '斧头哥': '高级武装人员',
+    '斧子哥': '高级武装人员',
+    '暴鸽': '暴鸰',
+    '暴鸽G': '暴鸰·G',
+}
+
+operatorNickname = {
+    '小燕子': '灰喉',
+    '小驴子': '阿米娅',
+    '阿米驴': '阿米娅',
+    '氪二百': '刻俄柏',
+    '雪鸡': '雪雉',
+    '麦克雷': '麦哲伦',
+    '麦迪文': '麦哲伦',
+    '哥伦布': '麦哲伦',
+    '送马人': '送葬人',
+    '老爷子': '赫拉格',
+    '海蛞蝓': '格劳克斯',
+    '弟弟': '斯卡蒂',
+    '蒂蒂': '斯卡蒂',
+    '银老板': '银灰',
+    '塞妈': '塞雷娅',
+    '塞爹': '塞雷娅',
+    '赛妈': '塞雷娅',
+    '赛爹': '塞雷娅',
+    '鬼姐': '星熊',
+    '洁哥': '安洁莉娜',
+    '小绵羊': '艾雅法拉',
+    '小火龙': '伊芙利特',
+    '推王': '推进之王',
+}
+
 
 def translate(SkillName):
     skill = [SkillName]
@@ -99,7 +138,8 @@ def printEnemyList():
             stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position])) - 1) / 2)
         if re.search(r'[“”]', reverseIndex[position]) is not None:
             stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position]))) / 2) - 2
-        return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(reverseIndex[position]) + '%s' % (' ' * int((15 - stringlength)))
+        return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(
+            reverseIndex[position]) + '%s' % (' ' * int((15 - stringlength)))
 
     rows = int(len(index) // 5)
     remain = int(len(index) % 5)
@@ -372,10 +412,28 @@ def readEnemyProperties():
         enemyPropertiesList[str(codename)] = globals()[str(key)]
 
 
+def operatorInfo(operator):
+    try:
+        operator = operatorNickname[str(operator)]
+    except KeyError:
+        pass
+    print('Search:' + str(operator))
+    if system() == 'Darwin':
+        suppressOutput = subprocess.call('open http://ak.mooncell.wiki/w/' + str(operator), shell=True)
+    elif system() == 'Windows':
+        suppressOutput = subprocess.call('start http://ak.mooncell.wiki/w/' + str(operator), shell=True)
+    else:
+        print('当前仅支持macOS以及Windows')
+
+
 def enemyInfoQuery(QueryString, clearScreen=True):
     global enemyID
     enemyID = 0
     enemyDataFound = False
+    try:
+        QueryString = enemyNickname[str(QueryString)]
+    except KeyError:
+        pass
     QueryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', QueryString)
     if clearScreen is True:
         # 清屏
@@ -437,7 +495,7 @@ if __name__ == '__main__':
                 enemyInfoQuery(queryString.lower(), clearScreen=False)
                 sys.argv.remove(str(queryString))
             print('输入list或“？”或直接“回车”重新获取敌方人员清单，输入exit退出。(OP+干员代号在PRTS中查看干员信息)')
-        
+
         try:
             queryString = str(input('PRTS_Query:>')).lower()
         except (EOFError, KeyboardInterrupt):
@@ -454,13 +512,8 @@ if __name__ == '__main__':
             quit()
 
         elif re.search(r'^[Oo][Pp]', queryString) is not None:
-            if system() == 'Darwin':
-                OpratorQuery = re.sub(r'^[Oo][Pp]', '', queryString).strip()
-                suppressOutput = subprocess.call('open http://ak.mooncell.wiki/w/' + str(OpratorQuery), shell=True)
-            elif system() == 'Windows':
-                suppressOutput = subprocess.call('start http://ak.mooncell.wiki/w/' + str(OpratorQuery), shell=True)
-            else:
-                print('当前仅支持macOS以及Windows')
+            queryString = re.sub(r'^[Oo][Pp]', '', queryString).strip()
+            operatorInfo(queryString)
 
         else:
             enemyInfoQuery(queryString)
