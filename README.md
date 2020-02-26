@@ -31,6 +31,8 @@
 * 天赋
 * 技能
 
+可以调用浏览器检索干员信息：[http://ak.mooncell.wiki/w/首页](http://ak.mooncell.wiki/w/首页)
+
 \*：lifePointReduce属性，即敌方人员成功进入保护点后保护点减少的耐久
 
 \*\*：在网络连接失败的时候会提示使用Socks代理进行连接
@@ -48,6 +50,8 @@
   ```python Arknights_enemy_database.py 粉碎攻坚手 w```
 
   会提供粉碎攻坚手以及W的情报。
+
+* `OP + 干员姓名`打开对应的PRTS Wiki页面。例：`OP 安洁莉娜`打开[安洁莉娜 - PRTS](http://ak.mooncell.wiki/w/安洁莉娜)
 
 ## TODO
 

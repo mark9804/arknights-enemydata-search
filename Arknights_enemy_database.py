@@ -5,7 +5,7 @@ import requests
 import subprocess
 import sys
 from time import sleep
-import platform
+from platform import system
 
 url = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
@@ -117,7 +117,7 @@ def printEnemyList():
         print(wrap(rows * 5) + wrap(rows * 5 + 1))
     elif remain == 1:
         print(wrap(rows * 5))
-    print('博士可以输入敌方人员代号或编号进行查询，输入exit退出。')
+    print('输入敌方人员代号或编号进行查询，输入exit退出。(OP+干员代号在PRTS中查看干员信息)')
 
 
 def enemyDataToIndex():
@@ -415,12 +415,12 @@ def enemyInfoQuery(QueryString, clearScreen=True):
 
 if __name__ == '__main__':
     # 在Windows环境下将控制台代码页设置为utf-8
-    if platform.system() == 'Darwin':
+    if system() == 'Darwin':
         try:
             suppressOutput = subprocess.call('clear', shell=True)
         except:
             pass
-    elif platform.system() == 'Windows':
+    elif system() == 'Windows':
         try:
             suppressOutput = subprocess.call('chcp 65001', shell=True)
             suppressOutput = subprocess.call('cls', shell=True)
@@ -436,9 +436,13 @@ if __name__ == '__main__':
             for queryString in sys.argv[1:]:
                 enemyInfoQuery(queryString.lower(), clearScreen=False)
                 sys.argv.remove(str(queryString))
-            print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
+            print('输入list或“？”或直接“回车”重新获取敌方人员清单，输入exit退出。(OP+干员代号在PRTS中查看干员信息)')
+        
+        try:
+            queryString = str(input('PRTS_Query:>')).lower()
+        except (EOFError, KeyboardInterrupt):
+            quit()
 
-        queryString = str(input('PRTS_Query:>')).lower()
         if queryString == '?' or queryString == 'list' or queryString == '？' or queryString == '':
             try:
                 suppressOutput = subprocess.call('cls', shell=True)
@@ -449,6 +453,15 @@ if __name__ == '__main__':
         elif queryString == 'exit' or queryString == 'quit':
             quit()
 
+        elif re.search(r'^[Oo][Pp]', queryString) is not None:
+            if system() == 'Darwin':
+                OpratorQuery = re.sub(r'^[Oo][Pp]', '', queryString).strip()
+                suppressOutput = subprocess.call('open http://ak.mooncell.wiki/w/' + str(OpratorQuery), shell=True)
+            elif system() == 'Windows':
+                suppressOutput = subprocess.call('start http://ak.mooncell.wiki/w/' + str(OpratorQuery), shell=True)
+            else:
+                print('当前仅支持macOS以及Windows')
+
         else:
             enemyInfoQuery(queryString)
-            print('博士可输入list或“？”重新获取敌方人员清单，输入exit退出。')
+            print('输入list或“？”或直接“回车”重新获取敌方人员清单，输入exit退出。(OP+干员代号在PRTS中查看干员信息)')

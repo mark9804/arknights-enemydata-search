@@ -4,7 +4,9 @@
 
 ## Data Source
 
-[Perfare/ArknightsGameData](https://github.com/Perfare/ArknightsGameData)
+~~[Perfare/ArknightsGameData](https://github.com/Perfare/ArknightsGameData)~~ Original source marked as 'Archived'
+
+[Kengxxiao/ArknightsGameData](https://github.com/Kengxxiao/ArknightsGameData)
 
 ## Feature
 
@@ -24,22 +26,27 @@ From version 0.1.0, the tool can provide information of the enemy units':
 * Talent
 * Skill
 
-\*: Currently I can't find out what lifePointReduce means. The bosses revealed in stories (Kingkiller, Froststar, Faust, etc) has a ```lifePointReduce:2``` value, while other units are 1. **Some units has no name and lifePointReduce value is null.**
+\*: lifePointReduce means how many "Defense Point(s)" will be reduced if the enemy successfully enters the blue defense block.
 
 ## Usage
 
 Download executable in the [Release](https://github.com/Mark9804/arknights-enemydata-search/releases) page, or download the .py file and execute.
 
-\*: You can input ```list``` to get enemies' list and their corresponding number.
+* Type ```list``` to get enemies' codename list and their corresponding number.
+* `python Arknights_enemy_database.py 粉碎攻坚手 w` will provide "粉碎攻坚手" and "W" data.
+* `OP + [operator codename]` will provide the web Wiki page of desired operator. e.g. `OP 安洁莉娜`will open [安洁莉娜 - PRTS](http://ak.mooncell.wiki/w/安洁莉娜)
 
 ## TODO
 
-* Search via arguments is currently not supported.
-* GUI is currently not planned.
-* Web UI, Mini program (WeChat) is currently not planned.
-* Further refactoring.
+- [x] Search via arguments is ~~currently not supported~~ finished.
+
+- [ ] GUI is ~~currently~~ not planned.
+
+- [ ] Web UI, Mini program (WeChat) is currently not planned.
+
+- [ ] Further refactoring.
 
 ## Other things to be mentioned
 
-* There are ```level: 1``` enemies in original json file. Such enemies have basic attributes such as attack and HP, but more attributes are undefined. Currently I cannot find out their usage, but I guess they might be used as an "enhanced" version in Raid levels. This kind of enemies is not included in my enemy database.
+* 明日方舟, Arknights, 鹰角网络 and Hypergryph Network Technology and their related marks are affiliated to Shanghai Hypergryph Technology Co. Ltd. This project has no link between Hypergryph.
 * Don't be evil.
