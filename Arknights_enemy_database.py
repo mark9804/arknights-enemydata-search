@@ -63,9 +63,13 @@ SkillDictionary = dict({
 })
 
 enemyNickname = {
+    '狗pro': '狂暴的猎狗pro',
     '冰刀哥': '雪怪小队破冰者',
     '黄刀哥': '寻仇者',
     '红刀哥': '复仇者',
+    '锤哥': '粉碎攻坚手',
+    '大锤哥': '粉碎攻坚手',
+    '红锤哥': '粉碎攻坚组长',
     '自爆虫': '高能源石虫·α',
     '自爆蜘蛛': '高能源石虫·α',
     '大斧哥': '高级武装人员',
@@ -80,6 +84,8 @@ operatorNickname = {
     '小驴子': '阿米娅',
     '阿米驴': '阿米娅',
     '氪二百': '刻俄柏',
+    '傻狗': '刻俄柏',
+    '傻狗子': '刻俄柏',
     '雪鸡': '雪雉',
     '麦克雷': '麦哲伦',
     '麦迪文': '麦哲伦',
@@ -472,6 +478,13 @@ def operatorInfo(operator):
         print('当前仅支持macOS以及Windows')
 
 
+def clearscreen():
+    try:
+        suppressOutput = subprocess.call('clear')
+    except:
+        suppressOutput = subprocess.call('cls', shell=True)
+
+
 def enemyInfoQuery(QueryString, clearScreen=True):
     global enemyID
     enemyID = 0
@@ -482,11 +495,7 @@ def enemyInfoQuery(QueryString, clearScreen=True):
         pass
     QueryString = re.sub(u'([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]|^0*|[·，,“”])', '', QueryString)
     if clearScreen is True:
-        # 清屏
-        try:
-            suppressOutput = subprocess.call('clear')
-        except:
-            suppressOutput = subprocess.call('cls', shell=True)
+        clearscreen()
     elif clearScreen is False:
         pass
     if QueryString != '':
@@ -560,6 +569,9 @@ if __name__ == '__main__':
         elif re.search(r'^[Oo][Pp]', queryString) is not None:
             queryString = re.sub(r'^[Oo][Pp]', '', queryString).strip()
             operatorInfo(queryString)
+
+        elif queryString == 'clear':
+            clearscreen()
 
         else:
             enemyInfoQuery(queryString)
