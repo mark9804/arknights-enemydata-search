@@ -81,7 +81,7 @@ enemyNickname = {
 
 operatorNickname = {
     '小燕子': '灰喉',
-    '小驴子|阿米[亚驴]|(?i)amiya': '阿米娅',
+    '(?i)(小驴子|阿米[亚驴]|amiya)': '阿米娅',
     '氪二百|很?傻的?狗': '刻俄柏',
     '雪鸡': '雪雉',
     '麦克雷|麦迪文|麦哲伦|哥伦布|小企鹅': '麦哲伦',
@@ -446,12 +446,12 @@ def operatorInfo(operator):
         if re.search(key, operator) is not None:
             operator = value
     print('Search:' + str(operator))
-    if system() == 'Darwin':
-        suppressOutput = subprocess.call('open http://ak.mooncell.wiki/w/' + str(operator), shell=True)
-    elif system() == 'Windows':
-        suppressOutput = subprocess.call('start http://ak.mooncell.wiki/w/' + str(operator), shell=True)
-    else:
-        print('当前仅支持macOS以及Windows')
+    # if system() == 'Darwin':
+    #     suppressOutput = subprocess.call('open http://ak.mooncell.wiki/w/' + str(operator), shell=True)
+    # elif system() == 'Windows':
+    #     suppressOutput = subprocess.call('start http://ak.mooncell.wiki/w/' + str(operator), shell=True)
+    # else:
+    #     print('当前仅支持macOS以及Windows')
 
 
 def clearscreen():
