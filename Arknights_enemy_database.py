@@ -176,7 +176,7 @@ def printEnemyList():
         if re.search(r'[“”]', reverseIndex[position]) is not None:
             stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position]))) / 2) - 2
         return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(
-            reverseIndex[position]) + '%s' % (' ' * int((15 - stringlength)))
+            reverseIndex[position]) + '%s' % (' ' * int((16 - stringlength)))
 
     rows = int(len(index) // 5)
     remain = int(len(index) % 5)
