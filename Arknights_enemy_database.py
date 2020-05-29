@@ -18,6 +18,7 @@ SkillDictionary = dict({
     'bsthmr': '爆破锤',
     'warn': '警报',
     '_scale': '增幅倍数',
+    '_level': '等级',
     'shield': '护盾',
     'SandStorm': '沙狱',
     'DriftSand': '唱沙',
@@ -45,12 +46,14 @@ SkillDictionary = dict({
     'hp_recovery_per_sec': '每秒回复生命值',
     'IceShield': '冰盾',
     'invincible': '无敌',
+    'Immo': '献祭',
     'lasso': '枷锁',
     'range_radius': '影响半径',
     'reborn': '重生',
     'up': '提升',
     'SpeedDown': '速度下降',
     'stun': '晕眩',
+    'taunt': '嘲讽',
     'combat': '近战',
     'SummonBallis': '召唤炮台',
     'Magic': '法术',
@@ -58,6 +61,7 @@ SkillDictionary = dict({
     'magic': '法术',
     '_resistance': '抗性',
     'Reduce': '减少',
+    'Rage': '狂暴',
     'BlockCnt': '干员阻挡人数',
     'block_cnt': '干员阻挡人数',
     'rangedamage': '范围伤害',
@@ -141,6 +145,7 @@ operatorNickname = {
     '[傻砂沙]子哥': '慑砂',
     '火子姐': '天火',
     '(?i)(爱豆|idol|偶像)': '空',
+    '铜': '巫恋',
 }
 
 
