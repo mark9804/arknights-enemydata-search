@@ -14,7 +14,7 @@ index = enemyProperties = reverseIndex = enemyPropertiesList = {}
 SkillDictionary = dict({
     'periodic_damage': '持续损失生命',
     'revive': '临战',
-    'unmove': '停止移动',
+    'unmove': '待命',
     'bsthmr': '爆破锤',
     'warn': '警报',
     '_scale': '增幅倍数',
@@ -181,24 +181,26 @@ def printEnemyList():
         if re.search(r'[“”]', reverseIndex[position]) is not None:
             stringlength = int((len(str(reverseIndex[position]).encode()) + len(str(reverseIndex[position]))) / 2) - 2
         return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(
-            reverseIndex[position]) + '%s' % (' ' * int((16 - stringlength)))
+            reverseIndex[position]) + '%s' % (' ' * int((22 - stringlength)))
 
-    rows = int(len(index) // 5)
-    remain = int(len(index) % 5)
+    def last(position):
+        return '%s' % ('0' * (3 - len(str(int(position) + 1)))) + str(int(position) + 1) + '.' + str(
+            reverseIndex[position])
+
+    rows = int(len(index) // 4)
+    remain = int(len(index) % 4)
     print('已探明的敌方人员清单：')
     for row in range(0, rows):
         row = row + 1
-        print(wrap(row * 5 - 5) + wrap(row * 5 - 4) + wrap(row * 5 - 3) + wrap(row * 5 - 2) + wrap(row * 5 - 1))
+        print(wrap(row * 4 - 4) + wrap(row * 4 - 3) + wrap(row * 4 - 2) + last(row * 4 - 1))
     if remain == 0:
         pass
-    elif remain == 4:
-        print(wrap(rows * 5) + wrap(rows * 5 + 1) + wrap(rows * 5 + 2) + wrap(rows * 5 + 3))
     elif remain == 3:
-        print(wrap(rows * 5) + wrap(rows * 5 + 1) + wrap(rows * 5 + 2))
+        print(wrap(rows * 4) + wrap(rows * 4 + 1) + last(rows * 4 + 2))
     elif remain == 2:
-        print(wrap(rows * 5) + wrap(rows * 5 + 1))
+        print(wrap(rows * 4) + last(rows * 4 + 1))
     elif remain == 1:
-        print(wrap(rows * 5))
+        print(last(rows * 4))
     print('输入敌方人员代号或编号进行查询，输入exit退出。(OP+干员代号在PRTS中查看干员信息)')
 
 
