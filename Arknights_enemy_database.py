@@ -13,6 +13,7 @@ index = enemyProperties = reverseIndex = enemyPropertiesList = {}
 
 SkillDictionary = dict({
     'periodic_damage': '持续损失生命',
+    'occupy': '占领',
     'revive': '临战',
     'unmove': '待命',
     'bsthmr': '爆破锤',
