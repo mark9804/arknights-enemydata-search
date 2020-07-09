@@ -1,11 +1,12 @@
 # coding: utf-8
 import json
 import re
-import requests
 import subprocess
 import sys
-from time import sleep
 from platform import system
+from time import sleep
+
+import requests
 
 url = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/enemydata/enemy_database.json'
 enemyID = retryCount = 0
@@ -261,95 +262,101 @@ def readEnemyProperties():
                  data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['lifePointReduce']['m_value']),
              })
         # 查找Level 1信息
-        while enemyLevelExists:
+        if enemyLevelExists:
             enemyHigherLevel = enemyLevel + 1
             enemyHighestLevel = enemyLevel + 2
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['maxHp']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['maxHp'][
+                    'm_defined']:
                     globals()[str(key)]['生命'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['maxHp'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['maxHp']['m_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['maxHp'][
+                            'm_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['atk']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['atk'][
+                    'm_defined']:
                     globals()[str(key)]['攻击'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['atk'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['atk']['m_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['atk'][
+                            'm_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['def']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['def'][
+                    'm_defined']:
                     globals()[str(key)]['防御'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['def'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['def']['m_value']) + '）'
-            except IndexError:
-                pass
-            try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['magicResistance']['m_defined']:
-                    globals()[str(key)]['法抗'] = str(
-                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['magicResistance'][
-                            'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['magicResistance'][
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['def'][
                             'm_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['moveSpeed']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                    'magicResistance']['m_defined']:
+                    globals()[str(key)]['法抗'] = str(
+                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes'][
+                            'magicResistance']['m_value']) + '（level1：' + str(
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                            'magicResistance']['m_value']) + '）'
+            except IndexError:
+                enemyLevelExists = False
+            try:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['moveSpeed'][
+                    'm_defined']:
                     globals()[str(key)]['移动速度'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['moveSpeed'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['moveSpeed'][
-                            'm_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                            'moveSpeed']['m_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['baseAttackTime']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                    'baseAttackTime']['m_defined']:
                     globals()[str(key)]['基础攻击间隔时长'] = str(
-                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['baseAttackTime'][
-                            'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['baseAttackTime'][
-                            'm_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes'][
+                            'baseAttackTime']['m_value']) + '（level1：' + str(
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                            'baseAttackTime']['m_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['hpRecoveryPerSec']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                    'hpRecoveryPerSec']['m_defined']:
                     globals()[str(key)]['每秒回复生命'] = str(
-                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['hpRecoveryPerSec'][
-                            'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['hpRecoveryPerSec'][
-                            'm_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes'][
+                            'hpRecoveryPerSec']['m_value']) + '（level1：' + str(
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                            'hpRecoveryPerSec']['m_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['massLevel']['m_defined']:
+                if data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes']['massLevel'][
+                    'm_defined']:
                     globals()[str(key)]['重量'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['attributes']['massLevel'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['attributes']['massLevel']['m_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['attributes'][
+                            'massLevel']['m_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
             try:
-                if data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['rangeRadius']['m_defined'] and str(
-                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['rangeRadius']['m_value']) != '0.0':
+                if data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['rangeRadius'][
+                    'm_defined'] and str(
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['rangeRadius'][
+                            'm_value']) != '0.0':
                     globals()[str(key)]['攻击范围'] = str(
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['rangeRadius'][
                             'm_value']) + '（level1：' + str(
-                        data['enemies'][index[codename]]['Value']
-                        [enemyHigherLevel]['enemyData']['rangeRadius']['m_value']) + '）'
+                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['rangeRadius'][
+                            'm_value']) + '）'
             except IndexError:
-                pass
+                enemyLevelExists = False
         # 碎骨有Level 2，不排除之后会添加其他boss的相关信息
         try:
             if data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['maxHp']['m_defined']:
@@ -360,7 +367,7 @@ def readEnemyProperties():
                         'm_value']) + '；level2：' + str(
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['maxHp']['m_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['atk']['m_defined']:
                 globals()[str(key)]['攻击'] = str(
@@ -370,7 +377,7 @@ def readEnemyProperties():
                         'm_value']) + '；level2：' + str(
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['atk']['m_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['def']['m_defined']:
                 globals()[str(key)]['防御'] = str(
@@ -380,7 +387,7 @@ def readEnemyProperties():
                         'm_value']) + '；level2：' + str(
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['def']['m_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['magicResistance']['m_defined']:
                 globals()[str(key)]['法抗'] = str(
@@ -391,7 +398,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['magicResistance'][
                         'm_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['moveSpeed']['m_defined']:
                 globals()[str(key)]['移动速度'] = str(
@@ -402,7 +409,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['moveSpeed'][
                         'm_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['baseAttackTime']['m_defined']:
                 globals()[str(key)]['基础攻击间隔时长'] = str(
@@ -413,7 +420,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['baseAttackTime'][
                         'm_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['hpRecoveryPerSec']['m_defined']:
                 globals()[str(key)]['每秒回复生命'] = str(
@@ -424,7 +431,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['hpRecoveryPerSec'][
                         'm_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][1]['enemyData']['attributes']['massLevel']['m_defined']:
                 globals()[str(key)]['重量'] = str(
@@ -435,7 +442,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['attributes']['massLevel'][
                         'm_value']) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         try:
             if data['enemies'][index[codename]]['Value'][0]['enemyData']['rangeRadius']['m_defined'] and str(
                     data['enemies'][index[codename]]['Value'][1]['enemyData']['rangeRadius']['m_value']) != '0.0':
@@ -449,7 +456,7 @@ def readEnemyProperties():
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value'] == 0.0 else str(
                     data['enemies'][index[codename]]['Value'][2]['enemyData']['rangeRadius']['m_value'] == 0.0) + '）'
         except IndexError:
-            pass
+            enemyLevelExists = False
         # with pysnooper.snoop():
         try:
             for talent in range(0, len(data['enemies'][index[codename]]['Value'][0]['enemyData']['talentBlackboard'])):
