@@ -35,11 +35,11 @@
 
 \*：lifePointReduce属性，即敌方人员成功进入保护点后保护点减少的耐久
 
-\*\*：在网络连接失败的时候会提示使用Socks代理进行连接
+\*\*：在网络连接失败的时候会提示使用Socks代理进行连接（我没有socks代理，所以这项功能没有测试过）
 
 ## 使用
 
-下载[Release](https://github.com/Mark9804/arknights-enemydata-search/releases)中的可执行文件使用，或者下载.py文件运行。
+下载 [Release](https://github.com/Mark9804/arknights-enemydata-search/releases) 中的可执行文件使用，或者下载.py文件运行。
 
 因为我现在主力电脑是Mac，所以一段时间之内不能放出适用于Windows的build了。
 
@@ -51,7 +51,7 @@
 
   会提供粉碎攻坚手以及W的情报。
 
-* `OP + 干员姓名`打开对应的PRTS Wiki页面。例：`OP 安洁莉娜`打开[安洁莉娜 - PRTS](http://ak.mooncell.wiki/w/安洁莉娜)
+* `OP + 干员姓名/外号`打开对应的PRTS Wiki页面。例：`OP 洁哥`会打开 [安洁莉娜 - PRTS](http://ak.mooncell.wiki/w/安洁莉娜)
 
 ## TODO
 
