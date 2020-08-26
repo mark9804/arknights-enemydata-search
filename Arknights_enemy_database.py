@@ -74,6 +74,12 @@ SkillDictionary = dict({
     'dot': '点燃',
     'interval': '间隔',
     'sp': '技力',
+    'bird_run': '大祭司_奔跑状态',
+    'cuttree': '伐木',
+    'duel': '决斗',
+    'StunAttack': '眩晕攻击',
+    'TakeOff': '起飞',
+    'max_stack_cnt': '最大堆叠层数',
 })
 
 enemyNickname = {
