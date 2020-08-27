@@ -80,6 +80,7 @@ SkillDictionary = dict({
     'StunAttack': '眩晕攻击',
     'TakeOff': '起飞',
     'max_stack_cnt': '最大堆叠层数',
+    'refresh': '刷新',
 })
 
 enemyNickname = {
@@ -156,7 +157,6 @@ operatorNickname = {
     '[傻砂沙]子哥': '慑砂',
     '火子姐': '天火',
     '(?i)(爱豆|idol|偶像)': '空',
-    '铜': '巫恋',
 }
 
 
@@ -479,8 +479,8 @@ def readEnemyProperties():
             try:
                 if data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['rangeRadius'][
                     'm_defined'] and str(
-                        data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['rangeRadius'][
-                            'm_value']) != '0.0':
+                    data['enemies'][index[codename]]['Value'][enemyHigherLevel]['enemyData']['rangeRadius'][
+                        'm_value']) != '0.0':
                     globals()[str(key)]['攻击范围'] = '近身攻击' if \
                         data['enemies'][index[codename]]['Value'][enemyLevel]['enemyData']['rangeRadius'][
                             'm_value'] == 0.0 else str(
