@@ -71,7 +71,7 @@ SkillDictionary = dict({
     'rangedamage': '范围伤害',
     'damage': '伤害',
     'self': '自身',
-    'dot': '点燃',
+    'dot': '真实伤害',
     'interval': '间隔',
     'sp': '技力',
     'bird_run': '大祭司_奔跑状态',
