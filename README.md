@@ -2,7 +2,7 @@
 
 \* [English](https://github.com/Mark9804/arknights-enemydata-search/blob/master/README_en.md)
 
-\* 今天找到了大佬造的完整的[轮子](https://somedata.top/Arknights/enemydata)，本项目可能就更新的没那么勤快了。 
+\* 今天找到了大佬造的完整的[轮子](https://kokodayo.fun/enemydata)，本项目可能就更新的没那么勤快了。 
 > 丢人，你马上给我退出战场！
 
 ## 数据来源
